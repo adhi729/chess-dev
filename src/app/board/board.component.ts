@@ -45,67 +45,73 @@ export class BoardComponent implements OnInit {
 	private makeMoveSquare : board_square = null;
 	private activeSquares: number[] = [];
 	private piecesTake = [[],[]];
-	private findMoves(id: number,piece:string): void {
+	private findMoves(x: number,y: number,piece:string): void {
+		let index_id : {x_id : number; y_id : number};
+		index_id = {x_id : x, y_id : y};
 		switch (piece.slice(0,-9)) {
 			case "pawn":
-				if (id<16) {
-					this.activeSquares.push(id+8,id+16)
+				if (x = 6) {
+					this.activeSquares.push(x*8+y-1,x*8+y+7)
 				} else {
-					this.activeSquares.push(id+8);
+					this.activeSquares.push(x*8+y-1)
 				}
 				break;
+			
 			case "rook":
-					let index = id;
-					if (index - 8>0) {
-						for (var i = index - 8; i >= 0; i= i-8) {
-						console.log("lookie here")
-						if (this.squares[i].piece=="" || this.squares[i].piece.slice(-8,-3) != piece.slice(-8,-3) ){
-							this.activeSquares.push(i);
-						}
-					}
-					}
-
-					if (index + 8 < 64) {
-						for (var i = index + 8; i < 64; i = i+8) {
-							if (this.squares[i].piece=="" || this.squares[i].piece.slice(-8,-3) != piece.slice(-8,-3) ){
-								this.activeSquares.push(i);
+				if (index_id.x_id - 1 > 0){
+					for (var i = index_id.x_id - 1; i > 0; i--) {
+						if (this.squares[i*8 + index_id.y_id - 9].piece == "" ){
+							this.activeSquares.push(i*8 + index_id.y_id - 9)
+						} else {
+							if (piece.slice(-9,-3) != this.squares[i*8 + index_id.y_id - 9].piece.slice(-9,-3) ){
+								this.activeSquares.push(i*8 + index_id.y_id - 9)
 							}
+							break;
 						}
 					}
-
-					if(index>0){
-						for (var i = index % 8 - 1; i <7 && i>=0; i--) {
-							if (this.squares[index - index % 8 + i].piece=="" || this.squares[index - index % 8 + i].piece.slice(-8,-3) != piece.slice(-8,-3) ){
-								this.activeSquares.push(index - index % 8 + i);
+				}
+				if (index_id.x_id - 1< 7){
+					for (var i = index_id.x_id + 1; i <= 8; i++) {
+						if (this.squares[i*8 + index_id.y_id - 9].piece == "" ){
+							this.activeSquares.push(i*8 + index_id.y_id - 9)
+						} else {
+							if (piece.slice(-8,-3) != this.squares[i*8 + index_id.y_id - 9].piece.slice(-8,-3) ){
+								this.activeSquares.push(i*8 + index_id.y_id - 9)
 							}
+							break;
 						}
 					}
-					if(index<63){
-						for (var i = index % 8 + 1; i > 0 && i<= 7; i++) {
-							console.log(index - index % 8 + i)
-							if (this.squares[index - index % 8 + i].piece=="" || this.squares[index - index % 8 + i].piece.slice(-8,-3) != piece.slice(-8,-3) ){
-								this.activeSquares.push(index - index % 8 + i);
+				}
+				if (index_id.y_id - 1< 7){
+					for (var i = index_id.y_id + 1; i <= 8; i++) {
+						if (this.squares[index_id.x_id*8 + i - 9].piece == "" ){
+							this.activeSquares.push(index_id.x_id*8 + i - 9)
+						} else {
+							if (piece.slice(-8,-3) != this.squares[index_id.x_id*8 + i - 9].piece.slice(-8,-3) ){
+								this.activeSquares.push(index_id.x_id*8 + i - 9)
 							}
+							break;
 						}
 					}
-					break;
-			case "rook_old":
-				id = id + 8;
-				while(this.squares[id].piece.length == 0 || this.squares[id].piece == this.makeMoveSquare.piece){
-					console.log(id)
-					this.changeStatus(id);
-					id = id + 8;
-					if(this.squares[id].piece.slice(-8,-3)=="black"){
-						this.changeStatus(id);
+				}
+				if (index_id.y_id - 1 > 0){
+					for (var i = index_id.y_id - 1; i > 0; i--) {
+						if (this.squares[index_id.x_id*8 + i - 9].piece == "" ){
+							this.activeSquares.push(index_id.x_id*8 + i - 9)
+						} else {
+							if (piece.slice(-8,-3) != this.squares[index_id.x_id*8 + i - 9].piece.slice(-8,-3) ){
+								this.activeSquares.push(index_id.x_id*8 + i - 9)
+							}
+							break;
+						}
 					}
 				}
 				break;
-		}
-		for (let key of this.activeSquares){
 
-						console.log("lookie here",key)
-			this.changeStatus(this.activeSquares[key]);
+			case "bishop":
+				break;	
 		}
+		console.log(this.activeSquares)
 	}
 	private commitMove(id_1: number, id_2: number): void{
 		if (this.squares[id_2].piece.length != 0 ){
@@ -127,21 +133,27 @@ export class BoardComponent implements OnInit {
 
 	moveMe(square: board_square): void{
 
-			console.log("called findMoves")
+			console.log("called findMoves", square.id)
 		if (this.makeMoveSquare == null) {
 			this.makeMoveSquare = square;
 			square.status = "active";
-			this.findMoves(square.id.x*8 + square.id.y-9, square.piece);
+			this.findMoves(square.id.x, square.id.y, square.piece);
+			for (let key of this.activeSquares)	{
+			this.changeStatus(key)
+			}
 			
 		} else{
 			if (square !=  this.makeMoveSquare && square.status == "active" ){
 				this.squares[square.id.x*8 + square.id.y-9].piece = this.squares[this.makeMoveSquare.id.x*8+this.makeMoveSquare.id.y - 9].piece;
-				this.findMoves(this.makeMoveSquare.id.x*8+this.makeMoveSquare.id.y - 9,this.makeMoveSquare.piece);
+				
 				this.squares[this.makeMoveSquare.id.x*8+this.makeMoveSquare.id.y - 9].piece = "";
 			};
-
 			this.squares[this.makeMoveSquare.id.x*8+this.makeMoveSquare.id.y - 9].status = "" ;
+			for (let key of this.activeSquares)	{
+			this.changeStatus(key);
+			}
 			this.makeMoveSquare = null;
+			this.activeSquares= [];
 		};
 		//sessionStorage.setItem('key',JSON.stringify(this.squares));
 		
