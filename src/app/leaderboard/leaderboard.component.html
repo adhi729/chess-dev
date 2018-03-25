@@ -1,0 +1,17 @@
+<h2>LEADERBOARD</h2>
+<div class="leaderboard">
+	<table>
+		<tr>
+			<th>Name</th>
+			<th>FIDE Ratings</th>
+			<th>Insti Ratings</th>
+			<th>Blah</th>
+		</tr>
+		<tr *ngFor="let leaderboard of leaderboards">
+			<td>{{leaderboard.roll}}</td>
+			<td>{{leaderboard.ratings.fide}}</td>
+			<td>{{leaderboard.ratings.insti}}</td>
+			<td>{{leaderboard.ratings.blah}}</td>
+		</tr>
+	</table>
+</div>

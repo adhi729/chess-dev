@@ -1,0 +1,55 @@
+.login-form{
+	height: 50vh;
+	width: 30vw;
+	top:25vh;
+	left: 35vw;
+	position: absolute;
+	/*border:1px black solid;*/
+	padding: 5vh;
+    font-family: 'Lato', sans-serif;
+
+	box-shadow: 0px 0px 5px grey ;
+}
+
+input{
+	border: none;
+	width: 30vw;
+	height: 3vw;
+	/*box-shadow: inset 0px 0px 5px grey ;*/
+	border: 1px solid lightgrey;
+	/*border-radius: 5px;*/
+	margin: 1vw;
+	text-align: center;
+
+}
+input:hover{
+}
+
+button{
+	background-color: orange;
+	width: 30vw;
+	height: 3vw;
+	style: none;
+	border: none;
+	text-align: center;
+	vertical-align: center;
+    box-shadow:inset 0px 0px 5px grey;
+    border-radius: 5px;
+	margin: 1vw;
+	text-align: center;
+}
+
+button:hover{
+	background-color: red;
+	color:white;
+	width: 30vw;
+	height: 3vw;
+	style: none;
+	border: none;
+	text-align: center;
+	vertical-align: center;
+    box-shadow:inset 0px 0px 5px grey;
+    border-radius: 5px;
+	margin: 1vw;
+	text-align: center;
+}

@@ -1,0 +1,9 @@
+<div>
+	<div class="messages">
+		<li *ngFor="let message of messages">{{message}}</li>
+	</div>
+	<div class="message">
+		<input type="string" placeholder="send taunts" [(ngModel)]="message">
+		<button (click)="send(message)">send</button>
+	</div>
+</div>

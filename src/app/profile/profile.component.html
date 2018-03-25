@@ -1,0 +1,33 @@
+<div class="profile">
+	<h1>{{profile.roll | uppercase}}'s profile: </h1>
+	<hr>
+	<span>Roll No. : {{profile.roll}}</span><br>
+	<span>Name :<input type="name" name="name" placeholder="Disabled due to creativity of junta."></span><br>
+	<span>Matched Played : {{profile.matches_played}}</span><br>
+	<span>win % : {{profile.win_percent}}</span><br>
+	<span>draw % : {{profile.draw_percent}}</span><br>
+	<table class="matches">
+		<tr>
+			<th>Played against</th>
+			<th>TimeStamp</th>
+			<th>status</th>
+		</tr>
+		<tr *ngFor="let matches of profile.matches">
+			<td>{{matches.match_id.slice(0,8)}}</td>
+			<td>{{matches.timestamp}}</td>
+			<td>{{matches.win}}</td>
+		</tr>
+	</table>
+	<table class="ratings">
+		<tr>
+			<th>Fide</th>
+			<th>Insti</th>
+			<th>lol</th>
+		</tr>
+		<tr>
+			<td>{{profile.ratings.fide}}</td>
+			<td>{{profile.ratings.insti}}</td>
+			<td>{{profile.ratings.blah}}</td>
+		</tr>
+	</table>
+</div>

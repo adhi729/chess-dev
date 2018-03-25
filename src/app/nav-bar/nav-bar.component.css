@@ -1,0 +1,29 @@
+.nav-bar{
+	width: 100vw;
+	height: 10vh;
+	background-color: lightblue;
+    font-family: 'Lato', sans-serif;
+}
+
+span{
+	height: 10vh;
+	vertical-align: center;
+	text-align: center;
+	padding: 1vh;
+	margin-left: 1vh;
+	display: block;
+	float: left;
+}
+
+span:hover{
+	background-color: blue; 
+}
+
+.profile{
+	width: 10vw;
+	height: 10vh;
+	float: right;
+	text-align: center;
+	vertical-align: center;
+	padding: 1vh;
+}

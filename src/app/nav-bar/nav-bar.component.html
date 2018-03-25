@@ -1,0 +1,12 @@
+<div class="nav-bar">
+	<span routerLink="home">Home</span>
+	<span routerLink="play">Play Online</span>
+	<span routerLink="leaderboard">Leaderboard</span>
+	<span routerLink="">Puzzles/Tactics</span>
+	<span routerLink="">Calendar</span>
+	<span routerLink="">About Us</span>
+	<div class="profile">
+		<a routerLink="profile/{{profile.roll}}">{{profile.roll | uppercase}}</a>
+		{{sessionID}}
+	</div>
+</div>

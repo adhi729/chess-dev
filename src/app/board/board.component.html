@@ -1,0 +1,18 @@
+<div class="board-container">
+	<div id="player_02">
+		<span id="clock_02">
+			<button>Ready!</button>
+		</span>
+	</div>
+	<div id="board">
+		<div *ngFor="let square of squares" [ngStyle]="customStyle(square)" (click)="moveMe(square)" id="{{getID(square)}}">
+			<img src="assets/{{getPiece(getID(square))}}.png" alt="">
+			{{square.id.x}},{{square.id.y}}
+		</div>
+	</div>
+	<div id="player_01">
+		<span id="clock_01">
+			<button>Ready!</button>
+		</span>
+	</div>
+</div>
