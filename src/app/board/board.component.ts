@@ -57,7 +57,7 @@ export class BoardComponent implements OnInit {
 				}
 				break;
 			
-			case "rook"||"queen":
+			case "rook":
 				if (index_id.x_id - 1 > 0){
 					for (var i = index_id.x_id - 1; i > 0; i--) {
 						if (this.squares[i*8 + index_id.y_id - 9].piece == "" ){
@@ -133,7 +133,6 @@ export class BoardComponent implements OnInit {
 						}
 					}
 				}
-				console.log("passed")
 				if (index_id.x_id - 1 > 0 && index_id.y_id - 1 < 7){
 					for (let i = index_id.x_id - 1,j = index_id.y_id + 1; i>0 && j<=8; i--,j++){
 						if (this.squares[i*8 + j - 9].piece == "" ){
@@ -169,9 +168,7 @@ export class BoardComponent implements OnInit {
 					{x_id : x+2, y_id : y-1},
 					{x_id : x-2, y_id : y+1},
 					{x_id : x-2, y_id : y-1}];
-					console.log(possible)
 				for(let poss of possible) {
-					console.log(poss)
 					if(poss.x_id>0&&poss.x_id<=8&&poss.y_id>0&&poss.y_id<=8){
 						if (this.squares[poss.x_id*8+poss.y_id-9].piece == "" ){
 							this.activeSquares.push(poss.x_id*8+poss.y_id-9)
@@ -183,6 +180,105 @@ export class BoardComponent implements OnInit {
 					}
 				}
 				break;	
+			case "queen":
+				if (index_id.x_id - 1 > 0 && index_id.y_id - 1 > 0){
+					for (let i = index_id.x_id - 1,j = index_id.y_id -1; i>0 && j>0; i--,j--){
+						if (this.squares[i*8 + j - 9].piece == "" ){
+							this.activeSquares.push(i*8 + j - 9)
+						} else {
+							if (piece.slice(-8,-3) != this.squares[i*8 + j - 9].piece.slice(-8,-3) ){
+								this.activeSquares.push(i*8 + j - 9)
+							}
+							break;
+						}
+					}
+				}
+				if (index_id.x_id - 1 < 7 && index_id.y_id - 1 < 7){
+					for (let i = index_id.x_id + 1,j = index_id.y_id + 1; i<=8 && j<=8; i++,j++){
+						if (this.squares[i*8 + j - 9].piece == "" ){
+							this.activeSquares.push(i*8 + j - 9)
+						} else {
+							if (piece.slice(-8,-3) != this.squares[i*8 + j - 9].piece.slice(-8,-3) ){
+								this.activeSquares.push(i*8 + j - 9)
+							}
+							break;
+						}
+					}
+				}
+				if (index_id.x_id - 1 > 0 && index_id.y_id - 1 < 7){
+					for (let i = index_id.x_id - 1,j = index_id.y_id + 1; i>0 && j<=8; i--,j++){
+						if (this.squares[i*8 + j - 9].piece == "" ){
+							this.activeSquares.push(i*8 + j - 9)
+						} else {
+							if (piece.slice(-8,-3) != this.squares[i*8 + j - 9].piece.slice(-8,-3) ){
+								this.activeSquares.push(i*8 + j - 9)
+							}
+							break;
+						}
+					}
+				}
+				if (index_id.x_id - 1 < 7 && index_id.y_id - 1 > 0){
+					for (let i = index_id.x_id + 1,j = index_id.y_id - 1; i<=8 && j>0; i++,j--){
+						if (this.squares[i*8 + j - 9].piece == "" ){
+							this.activeSquares.push(i*8 + j - 9)
+						} else {
+							if (piece.slice(-8,-3) != this.squares[i*8 + j - 9].piece.slice(-8,-3) ){
+								this.activeSquares.push(i*8 + j - 9)
+							}
+							break;
+						}
+					}
+				}
+				if (index_id.x_id - 1 > 0){
+					for (var i = index_id.x_id - 1; i > 0; i--) {
+						if (this.squares[i*8 + index_id.y_id - 9].piece == "" ){
+							this.activeSquares.push(i*8 + index_id.y_id - 9)
+						} else {
+							if (piece.slice(-9,-3) != this.squares[i*8 + index_id.y_id - 9].piece.slice(-9,-3) ){
+								this.activeSquares.push(i*8 + index_id.y_id - 9)
+							}
+							break;
+						}
+					}
+				}
+				if (index_id.x_id - 1< 7){
+					for (var i = index_id.x_id + 1; i <= 8; i++) {
+						if (this.squares[i*8 + index_id.y_id - 9].piece == "" ){
+							this.activeSquares.push(i*8 + index_id.y_id - 9)
+						} else {
+							if (piece.slice(-8,-3) != this.squares[i*8 + index_id.y_id - 9].piece.slice(-8,-3) ){
+								this.activeSquares.push(i*8 + index_id.y_id - 9)
+							}
+							break;
+						}
+					}
+				}
+				if (index_id.y_id - 1< 7){
+					for (var i = index_id.y_id + 1; i <= 8; i++) {
+						if (this.squares[index_id.x_id*8 + i - 9].piece == "" ){
+							this.activeSquares.push(index_id.x_id*8 + i - 9)
+						} else {
+							if (piece.slice(-8,-3) != this.squares[index_id.x_id*8 + i - 9].piece.slice(-8,-3) ){
+								this.activeSquares.push(index_id.x_id*8 + i - 9)
+							}
+							break;
+						}
+					}
+				}
+				if (index_id.y_id - 1 > 0){
+					for (var i = index_id.y_id - 1; i > 0; i--) {
+						if (this.squares[index_id.x_id*8 + i - 9].piece == "" ){
+							this.activeSquares.push(index_id.x_id*8 + i - 9)
+						} else {
+							if (piece.slice(-8,-3) != this.squares[index_id.x_id*8 + i - 9].piece.slice(-8,-3) ){
+								this.activeSquares.push(index_id.x_id*8 + i - 9)
+							}
+							break;
+						}
+					}
+				}
+				break;
+
 		}
 	}
 	private commitMove(id_1: number, id_2: number): void{
