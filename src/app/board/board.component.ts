@@ -46,8 +46,8 @@ export class BoardComponent implements OnInit {
 	private activeSquares: number[] = [];
 	private piecesTake = [[],[]];
 	private findMoves(x: number,y: number,piece:string): void {
-		let index_id : {x_id : number; y_id : number};
-		index_id = {x_id : x, y_id : y};
+		
+		let index_id :{x_id : number; y_id: number} = {x_id : x, y_id : y};
 		switch (piece.slice(0,-9)) {
 			case "pawn":
 				if (x = 6) {
@@ -57,7 +57,7 @@ export class BoardComponent implements OnInit {
 				}
 				break;
 			
-			case "rook":
+			case "rook"||"queen":
 				if (index_id.x_id - 1 > 0){
 					for (var i = index_id.x_id - 1; i > 0; i--) {
 						if (this.squares[i*8 + index_id.y_id - 9].piece == "" ){
@@ -155,6 +155,30 @@ export class BoardComponent implements OnInit {
 								this.activeSquares.push(i*8 + j - 9)
 							}
 							break;
+						}
+					}
+				}
+				break;
+			case "horse":
+				let possible: {x_id : number; y_id: number}[] = [
+					{x_id : x+1, y_id : y+2},
+					{x_id : x+1, y_id : y-2},
+					{x_id : x-1, y_id : y+2},
+					{x_id : x-1, y_id : y-2},
+					{x_id : x+2, y_id : y+1},
+					{x_id : x+2, y_id : y-1},
+					{x_id : x-2, y_id : y+1},
+					{x_id : x-2, y_id : y-1}];
+					console.log(possible)
+				for(let poss of possible) {
+					console.log(poss)
+					if(poss.x_id>0&&poss.x_id<=8&&poss.y_id>0&&poss.y_id<=8){
+						if (this.squares[poss.x_id*8+poss.y_id-9].piece == "" ){
+							this.activeSquares.push(poss.x_id*8+poss.y_id-9)
+						} else {
+							if (piece.slice(-8,-3) != this.squares[poss.x_id*8+poss.y_id-9].piece.slice(-8,-3) ){
+								this.activeSquares.push(poss.x_id*8+poss.y_id-9)
+							}
 						}
 					}
 				}
