@@ -288,6 +288,7 @@ export class BoardComponent implements OnInit {
 					{x_id : x-1, y_id : y-1}];
 				for(let poss of possibles) {
 					if(poss.x_id>0&&poss.x_id<=8&&poss.y_id>0&&poss.y_id<=8){
+						console.log()
 						if(!this.checkCheck(poss.x_id,poss.y_id)){
 							if (this.squares[poss.x_id*8+poss.y_id-9].piece == "" ){
 								this.activeSquares.push(poss.x_id*8+poss.y_id-9)						
@@ -311,7 +312,7 @@ export class BoardComponent implements OnInit {
 						if (this.squares[i*8 + j - 9].piece != "" ){
 							if(this.squares[index_id.x_id*8+index_id.y_id-9].piece.slice(-8,-3) != this.squares[i*8+j-9].piece.slice(-8,-3)){
 								if(this.squares[i*8+j-9].piece.slice(0,-9) == "queen" ||this.squares[i*8+j-9].piece.slice(0,-9) == "bishop" ){
-									//alert("check from bishop/queen")
+									console.log(i,j,"check from bishop/queen")
 									return true;
 								}
 							}
@@ -324,7 +325,7 @@ export class BoardComponent implements OnInit {
 						if (this.squares[i*8 + j - 9].piece != "" ){
 							if(this.squares[index_id.x_id*8+index_id.y_id-9].piece.slice(-8,-3) != this.squares[i*8+j-9].piece.slice(-8,-3)){
 								if(this.squares[i*8+j-9].piece.slice(0,-9) == "queen" ||this.squares[i*8+j-9].piece.slice(0,-9) == "bishop" ){
-									//alert("check from bishop/queen")
+									console.log(i,j,"check from bishop/queen")
 									return true;
 								}
 							}
@@ -337,7 +338,7 @@ export class BoardComponent implements OnInit {
 						if (this.squares[i*8 + j - 9].piece != "" ){
 							if(this.squares[index_id.x_id*8+index_id.y_id-9].piece.slice(-8,-3) != this.squares[i*8+j-9].piece.slice(-8,-3)){
 								if(this.squares[i*8+j-9].piece.slice(0,-9) == "queen" ||this.squares[i*8+j-9].piece.slice(0,-9) == "bishop" ){
-									//alert("check from bishop/queen")
+									console.log(i,j,"check from bishop/queen")
 									return true;
 								}
 							}
@@ -350,7 +351,7 @@ export class BoardComponent implements OnInit {
 						if (this.squares[i*8 + j - 9].piece != "" ){
 							if(this.squares[index_id.x_id*8+index_id.y_id-9].piece.slice(-8,-3) != this.squares[i*8+j-9].piece.slice(-8,-3)){
 								if(this.squares[i*8+j-9].piece.slice(0,-9) == "queen" ||this.squares[i*8+j-9].piece.slice(0,-9) == "bishop" ){
-									//alert("check from bishop/queen")
+									console.log(i,j,"check from bishop/queen")
 									return true;
 								}
 							}
@@ -363,7 +364,7 @@ export class BoardComponent implements OnInit {
 						if (this.squares[i*8 + index_id.y_id - 9].piece != "" ){
 							if(this.squares[index_id.x_id*8+index_id.y_id-9].piece.slice(-8,-3) != this.squares[i*8+index_id.y_id-9].piece.slice(-8,-3)){
 								if(this.squares[i*8+index_id.y_id-9].piece.slice(0,-9) == "queen" ||this.squares[i*8+index_id.y_id-9].piece.slice(0,-9) == "rook" ){
-									//alert("check from rook/queen_01")
+									console.log(i,index_id.y_id,"check from rook/queen_01")
 									return true;
 								}
 							}
@@ -376,7 +377,7 @@ export class BoardComponent implements OnInit {
 						if (this.squares[i*8 + index_id.y_id - 9].piece != "" ){
 							if(this.squares[index_id.x_id*8+index_id.y_id-9].piece.slice(-8,-3) != this.squares[i*8+index_id.y_id-9].piece.slice(-8,-3)){
 								if(this.squares[i*8+index_id.y_id-9].piece.slice(0,-9) == "queen" ||this.squares[i*8+index_id.y_id-9].piece.slice(0,-9) == "rook" ){
-									//alert("check from rook/queen_01")
+									console.log(i,index_id.y_id,"check from rook/queen_01")
 									return true;
 								}
 							}
@@ -389,7 +390,7 @@ export class BoardComponent implements OnInit {
 						if (this.squares[index_id.x_id*8 + j - 9].piece != "" ){
 							if(this.squares[index_id.x_id*8+index_id.y_id-9].piece.slice(-8,-3) != this.squares[index_id.x_id*8+j-9].piece.slice(-8,-3)){
 								if(this.squares[index_id.x_id*8+j-9].piece.slice(0,-9) == "queen" ||this.squares[index_id.x_id*8+j-9].piece.slice(0,-9) == "rook" ){
-									//alert("check from rook/queen_03")
+									console.log(index_id.x_id,j,"check from rook/queen_03")
 									return true;
 								}
 							}
@@ -402,7 +403,7 @@ export class BoardComponent implements OnInit {
 						if (this.squares[index_id.x_id*8 + j - 9].piece != "" ){
 							if(this.squares[index_id.x_id*8+index_id.y_id-9].piece.slice(-8,-3) != this.squares[index_id.x_id*8+j-9].piece.slice(-8,-3)){
 								if(this.squares[index_id.x_id*8+j-9].piece.slice(0,-9) == "queen" ||this.squares[index_id.x_id*8+j-9].piece.slice(0,-9) == "rook" ){
-									//alert("check from rook/queen_03")
+									console.log(index_id.x_id,j,"check from rook/queen_03")
 									return true;
 								}
 							}
