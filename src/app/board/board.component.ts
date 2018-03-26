@@ -39,9 +39,7 @@ export class BoardComponent implements OnInit {
 			this.squares = squares;
 		}
 	};
-	private kingMoveCount = 0;
-	private rookMoveCount01 = 0;
-	private rookMoveCount02 = 0;
+	private MoveCount :{king: boolean; rook_right: boolean; rook_left: boolean;} = {king: false, rook_left: false, rook_right: false};
 	private makeMoveSquare : board_square = null;
 	private activeSquares: number[] = [];
 	private piecesTake = [[],[]];
@@ -278,9 +276,143 @@ export class BoardComponent implements OnInit {
 					}
 				}
 				break;
+			case "king":
+				let possibles: {x_id : number; y_id: number}[] = [
+					{x_id : x+1, y_id : y+1},
+					{x_id : x+1, y_id : y},
+					{x_id : x+1, y_id : y-1},
+					{x_id : x, y_id : y+1},
+					{x_id : x, y_id : y-1},
+					{x_id : x-1, y_id : y+1},
+					{x_id : x-1, y_id : y},
+					{x_id : x-1, y_id : y-1}];
+				for(let poss of possibles) {
+					if(poss.x_id>0&&poss.x_id<=8&&poss.y_id>0&&poss.y_id<=8){
+						if(!this.checkCheck(poss.x_id,poss.y_id)){
+							if (this.squares[poss.x_id*8+poss.y_id-9].piece == "" ){
+								this.activeSquares.push(poss.x_id*8+poss.y_id-9)						
+							} else {
+								if (piece.slice(-8,-3) != this.squares[poss.x_id*8+poss.y_id-9].piece.slice(-8,-3) ){
+									this.activeSquares.push(poss.x_id*8+poss.y_id-9)
+								}
+							}
+						}	
+					}
+				}
+				break;
 
 		}
 	}
+
+	private checkCheck(x: number,y: number): boolean{
+		let index_id :{x_id : number; y_id: number} = {x_id : x, y_id : y};
+				if (index_id.x_id - 1 > 0 && index_id.y_id - 1 > 0){
+					for (let i = index_id.x_id - 1,j = index_id.y_id -1; i>0 && j>0; i--,j--){
+						if (this.squares[i*8 + j - 9].piece != "" ){
+							if(this.squares[index_id.x_id*8+index_id.y_id-9].piece.slice(-8,-3) != this.squares[i*8+j-9].piece.slice(-8,-3)){
+								if(this.squares[i*8+j-9].piece.slice(0,-9) == "queen" ||this.squares[i*8+j-9].piece.slice(0,-9) == "bishop" ){
+									//alert("check from bishop/queen")
+									return true;
+								}
+							}
+							break;
+						}
+					}
+				}
+				if (index_id.x_id - 1 < 7 && index_id.y_id - 1 < 7){
+					for (let i = index_id.x_id + 1,j = index_id.y_id + 1; i<=8 && j<=8; i++,j++){
+						if (this.squares[i*8 + j - 9].piece != "" ){
+							if(this.squares[index_id.x_id*8+index_id.y_id-9].piece.slice(-8,-3) != this.squares[i*8+j-9].piece.slice(-8,-3)){
+								if(this.squares[i*8+j-9].piece.slice(0,-9) == "queen" ||this.squares[i*8+j-9].piece.slice(0,-9) == "bishop" ){
+									//alert("check from bishop/queen")
+									return true;
+								}
+							}
+							break;
+						}
+					}
+				}
+				if (index_id.x_id - 1 > 0 && index_id.y_id - 1 < 7){
+					for (let i = index_id.x_id - 1,j = index_id.y_id + 1; i>0 && j<=8; i--,j++){
+						if (this.squares[i*8 + j - 9].piece != "" ){
+							if(this.squares[index_id.x_id*8+index_id.y_id-9].piece.slice(-8,-3) != this.squares[i*8+j-9].piece.slice(-8,-3)){
+								if(this.squares[i*8+j-9].piece.slice(0,-9) == "queen" ||this.squares[i*8+j-9].piece.slice(0,-9) == "bishop" ){
+									//alert("check from bishop/queen")
+									return true;
+								}
+							}
+							break;
+						}
+					}
+				}
+				if (index_id.x_id - 1 < 7 && index_id.y_id - 1 > 0){
+					for (let i = index_id.x_id + 1,j = index_id.y_id - 1; i<=8 && j>0; i++,j--){
+						if (this.squares[i*8 + j - 9].piece != "" ){
+							if(this.squares[index_id.x_id*8+index_id.y_id-9].piece.slice(-8,-3) != this.squares[i*8+j-9].piece.slice(-8,-3)){
+								if(this.squares[i*8+j-9].piece.slice(0,-9) == "queen" ||this.squares[i*8+j-9].piece.slice(0,-9) == "bishop" ){
+									//alert("check from bishop/queen")
+									return true;
+								}
+							}
+							break;
+						}
+					}
+				}
+				if (index_id.x_id - 1 > 0){
+					for (var i = index_id.x_id - 1; i > 0; i--) {
+						if (this.squares[i*8 + index_id.y_id - 9].piece != "" ){
+							if(this.squares[index_id.x_id*8+index_id.y_id-9].piece.slice(-8,-3) != this.squares[i*8+index_id.y_id-9].piece.slice(-8,-3)){
+								if(this.squares[i*8+index_id.y_id-9].piece.slice(0,-9) == "queen" ||this.squares[i*8+index_id.y_id-9].piece.slice(0,-9) == "rook" ){
+									//alert("check from rook/queen_01")
+									return true;
+								}
+							}
+							break;
+						}
+					}
+				}
+				if (index_id.x_id - 1< 7){
+					for (var i = index_id.x_id + 1; i <= 8; i++) {
+						if (this.squares[i*8 + index_id.y_id - 9].piece != "" ){
+							if(this.squares[index_id.x_id*8+index_id.y_id-9].piece.slice(-8,-3) != this.squares[i*8+index_id.y_id-9].piece.slice(-8,-3)){
+								if(this.squares[i*8+index_id.y_id-9].piece.slice(0,-9) == "queen" ||this.squares[i*8+index_id.y_id-9].piece.slice(0,-9) == "rook" ){
+									//alert("check from rook/queen_01")
+									return true;
+								}
+							}
+							break;
+						}
+					}
+				}
+				if (index_id.y_id - 1< 7){
+					for (var j = index_id.y_id + 1; j <= 8; j++) {
+						if (this.squares[index_id.x_id*8 + j - 9].piece != "" ){
+							if(this.squares[index_id.x_id*8+index_id.y_id-9].piece.slice(-8,-3) != this.squares[index_id.x_id*8+j-9].piece.slice(-8,-3)){
+								if(this.squares[index_id.x_id*8+j-9].piece.slice(0,-9) == "queen" ||this.squares[index_id.x_id*8+j-9].piece.slice(0,-9) == "rook" ){
+									//alert("check from rook/queen_03")
+									return true;
+								}
+							}
+							break;
+						}
+					}
+				}
+				if (index_id.y_id - 1 > 0){
+					for (var j = index_id.y_id - 1; j > 0; j--) {
+						if (this.squares[index_id.x_id*8 + j - 9].piece != "" ){
+							if(this.squares[index_id.x_id*8+index_id.y_id-9].piece.slice(-8,-3) != this.squares[index_id.x_id*8+j-9].piece.slice(-8,-3)){
+								if(this.squares[index_id.x_id*8+j-9].piece.slice(0,-9) == "queen" ||this.squares[index_id.x_id*8+j-9].piece.slice(0,-9) == "rook" ){
+									//alert("check from rook/queen_03")
+									return true;
+								}
+							}
+							break;
+						}
+					}
+				}
+		return false;
+	}
+
 	private commitMove(id_1: number, id_2: number): void{
 		if (this.squares[id_2].piece.length != 0 ){
 			this.piecesTake[0].push(this.squares[id_2].piece);
@@ -313,6 +445,8 @@ export class BoardComponent implements OnInit {
 				this.squares[square.id.x*8 + square.id.y-9].piece = this.squares[this.makeMoveSquare.id.x*8+this.makeMoveSquare.id.y - 9].piece;
 				
 				this.squares[this.makeMoveSquare.id.x*8+this.makeMoveSquare.id.y - 9].piece = "";
+				let hello: boolean = this.checkCheck(1,5);
+				if (hello == true){alert("check")} 
 			};
 			this.squares[this.makeMoveSquare.id.x*8+this.makeMoveSquare.id.y - 9].status = "" ;
 			for (let key of this.activeSquares)	{
